@@ -2,6 +2,31 @@
   /* wait for the DOM to be ready */
   affirm.ui.ready(function(){
     $(function() {
+
+      // This event listener and the following functions were added
+      // specifically for Zohr. This may seem kind of like htting a roach with
+      // a sledgehammer, but I think it's a pretty safe way to make sure the
+      // billing address arrives at affirm correctly.
+      $("#checkout_form_payment input").keyup(function() {
+        let billingAddressInputs = [...document.querySelectorAll("#checkout_form_payment .address-form input")];
+        billingAddressInputs.forEach(function(input) {
+          updatePayloadBillingAddress(parseInputName(input.name), input.value)
+        });
+      });
+
+      // Replace the data that will be sent to affirm with what what is passed
+      // to this function
+      function updatePayloadBillingAddress(name, data) {
+        let billingAddress = $("#affirm_checkout_payload").data("affirm").billing;
+        billingAddress.address[name] = data;
+      }
+
+      // Grab the name from the input
+      // "order[billing_address][zipcode]" => "zipcode"
+      function parseInputName(nameAttribute) {
+        return nameAttribute.split(`[`).map(el => el.replace(/\[|\]/g, ``)).pop()
+      }
+
       /*****************************************************\
           setup loading and cancel events for the form
       \*****************************************************/
@@ -26,7 +51,7 @@
           handle continue button clicks with .open()
       \*****************************************************/
       $('#checkout_form_payment').submit(function(e){
-        var checkedPaymentMethod = $('#payment-method-fields input[type="radio"]:checked').val();
+        var checkedPaymentMethod = $('.payment-method-buttons input[type="radio"]:checked').val();
         var affirmPaymentMethodId = $("#affirm_checkout_payload").data("paymentgateway")
         if (affirmPaymentMethodId.toString() === checkedPaymentMethod) {
           var $submit_button = $(this).find("input[type='submit']");
