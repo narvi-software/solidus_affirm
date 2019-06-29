@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", 'LICENSE', 'Rakefile', 'README.md']
   s.test_files = Dir['test/**/*']
 
-  s.add_dependency 'active_model_serializers', '~> 0.10'
+  s.add_dependency 'active_model_serializers', '0.9.7'
   s.add_dependency 'affirm-ruby', '1.0.2'
   s.add_dependency 'solidus', ['>= 2.0', '< 3']
   s.add_dependency "solidus_support", '>= 0.2.2'

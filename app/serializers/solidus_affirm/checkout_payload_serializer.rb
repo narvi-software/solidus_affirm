@@ -15,11 +15,11 @@ module SolidusAffirm
     end
 
     def shipping
-      AddressSerializer.new(object.ship_address)
+      AddressSerializer.new(object.ship_address, root: false)
     end
 
     def billing
-      AddressSerializer.new(object.bill_address)
+      AddressSerializer.new(object.bill_address, root: false)
     end
 
     def items

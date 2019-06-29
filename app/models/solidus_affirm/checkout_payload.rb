@@ -1,5 +1,3 @@
-require 'active_model_serializers'
-
 module SolidusAffirm
   # This class represents the json payload needed for the Affirm checkout.
   # It will escapsulate the +Spree::Order+ and the needed configuration and
@@ -16,7 +14,7 @@ module SolidusAffirm
   #   [Hash] Affirm support arbitrary key:value metadata, we pass this hash
   #   directly to Affirm if it's present.
   # @see CheckoutPayloadSerializer
-  class CheckoutPayload < ActiveModelSerializers::Model
+  class CheckoutPayload < ActiveModel::Serializer
     attr_reader :order, :config, :metadata
 
     # @param order [Spree::Order]
