@@ -9,8 +9,12 @@ module SolidusAffirm
       end
 
       def add_stylesheets
-        inject_into_file 'vendor/assets/stylesheets/spree/frontend/all.css', " *= require spree/frontend/solidus_affirm\n", before: /\*\//, verbose: true
-        inject_into_file 'vendor/assets/stylesheets/spree/backend/all.css', " *= require spree/backend/solidus_affirm\n", before: /\*\//, verbose: true
+        if File.file? 'vendor/assets/stylesheets/spree/frontend/all.css'
+          inject_into_file 'vendor/assets/stylesheets/spree/frontend/all.css', " *= require spree/frontend/solidus_affirm\n", before: /\*\//, verbose: true
+        end
+        if File.file? 'vendor/assets/stylesheets/spree/backend/all.css'
+          inject_into_file 'vendor/assets/stylesheets/spree/backend/all.css', " *= require spree/backend/solidus_affirm\n", before: /\*\//, verbose: true
+        end
       end
 
       def add_migrations
