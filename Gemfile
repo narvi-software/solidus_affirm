@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 branch = ENV.fetch('SOLIDUS_BRANCH', 'master')
 
 gem 'solidus', github: 'solidusio/solidus', branch: branch
-gem 'affirm-ruby', github: 'peterberkenbosch/affirm', branch: 'update-dependencies'
 
 if ENV['DB'] == 'mysql'
   gem 'mysql2'
